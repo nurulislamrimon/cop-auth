@@ -11,7 +11,7 @@ const User = () => {
     !user && navigate('/login')
     return (
         <div>
-            <h1>Hello, {user?.displayName}!</h1>
+            <h1>Hello, {user?.displayName ? user.displayName : 'User'}!</h1>
             <span>Do you want to</span><button onClick={() => signOut(auth)}>Log out</button>?
         </div>
     );

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import auth from '../../firebase.init';
-import { useAuthState } from 'react-firebase-hooks/auth'
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAuthState, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth'
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const googleProvider = new GoogleAuthProvider();
@@ -12,8 +12,24 @@ const Login = () => {
     const handleGoogleAuth = () => {
         signInWithPopup(auth, googleProvider);
     }
-    const formSubmit = (e) => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+
+    const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
+
+
+    const handleEmail = (e) => {
+        setEmail(e.target.value);
+    }
+    const handlePassword = (e) => {
+        setPassword(e.target.value);
+    }
+
+    const formSubmit = e => {
         e.preventDefault();
+        signInWithEmailAndPassword(email, password)
+        user || setError("Invalid credential")
     }
 
     user && navigate('/user');
@@ -24,13 +40,14 @@ const Login = () => {
                 <div className="input-group">
                     <label htmlFor="">Email :</label>
                     <br />
-                    <input type="text" required />
+                    <input type="email" onBlur={handleEmail} placeholder='example@gmail.com' required />
                 </div>
                 <div className="input-group">
-                    <label htmlFor="">Password :</label>
+                    <label htmlFor="">New Password :</label>
                     <br />
-                    <input type="text" required />
+                    <input type="text" onBlur={handlePassword} placeholder='********' required />
                 </div>
+                {error && <p style={{ color: 'red' }}>{error}</p>}
                 <button>Submit</button>
                 <br />
                 <div className="or-container"><hr />or <hr /></div>
