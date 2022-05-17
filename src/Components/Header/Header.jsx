@@ -10,8 +10,12 @@ const Header = () => {
     return (
         <div>
             <Link to='/home'>Home</Link>
-            {!user ? <Link to='/login'>Log in</Link> :
-                <Link to='/user'>{user?.displayName ? user.displayName : 'User'}</Link>}
+            <Link to='/finance'>Finance</Link>
+            {
+                !user ?
+                    <Link to='/login'>Log in</Link> :
+                    <Link to='/user'>{user?.displayName ? user.displayName : 'User'}</Link>
+            }
         </div>
     );
 };

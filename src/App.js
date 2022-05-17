@@ -6,6 +6,8 @@ import Header from './Components/Header/Header';
 import Footer from './Components/Footer/Footer';
 import User from './Components/User/User';
 import Home from './Pages/Home/Home';
+import RequireAuth from './Components/RequireAuth/RequireAuth';
+import Finance from './Pages/Finance/Finance';
 
 function App() {
   return (
@@ -16,6 +18,11 @@ function App() {
       <Routes>
         <Route path='/' element={<Home></Home>}></Route>
         <Route path='/home' element={<Home></Home>}></Route>
+        <Route path='finance' element={
+          <RequireAuth>
+            <Finance></Finance>
+          </RequireAuth>
+        }></Route>
         <Route path='/login' element={<Login></Login>}></Route>
         <Route path='/signup' element={<Signup></Signup>}></Route>
         <Route path='/user' element={<User></User>}></Route>

@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import auth from '../../firebase.init';
 import { useAuthState, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth'
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const googleProvider = new GoogleAuthProvider();
     const [user] = useAuthState(auth);
     const navigate = useNavigate();
-    // const location = useLocation();
+    const location = useLocation();
+    const from = location?.state?.from?.pathname || "/";
     const handleGoogleAuth = () => {
         signInWithPopup(auth, googleProvider);
     }
@@ -32,7 +33,7 @@ const Login = () => {
         user || setError("Invalid credential")
     }
 
-    user && navigate('/user');
+    user && navigate(from, { replace: true });
     return (
         <div>
             <form onSubmit={formSubmit}>
