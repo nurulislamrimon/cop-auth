@@ -5,27 +5,30 @@ import auth from '../../firebase.init';
 import './Signup.css';
 
 const Signup = () => {
-    const [email, setEmail] = useState('');
-    const [newPassword, setNewPassword] = useState('');
-    const [rePassword, setRePassword] = useState('');
+    // const [email, setEmail] = useState('');
+    // const [newPassword, setNewPassword] = useState('');
+    // const [rePassword, setRePassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
     const [user] = useAuthState(auth);
 
 
-    const handleEmail = (e) => {
-        setEmail(e.target.value);
-    }
-    const handleNewPassword = (e) => {
-        setNewPassword(e.target.value);
-    }
-    const handleRePassword = (e) => {
-        setRePassword(e.target.value);
-    }
+    // const handleEmail = (e) => {
+    //     setEmail(e.target.value);
+    // }
+    // const handleNewPassword = (e) => {
+    //     setNewPassword(e.target.value);
+    // }
+    // const handleRePassword = (e) => {
+    //     setRePassword(e.target.value);
+    // }
 
     const formSubmit = e => {
         e.preventDefault();
+        const email = e.target.email.value;
+        const newPassword = e.target.newPassword.value;
+        const rePassword = e.target.rePassword.value;
         if (newPassword !== rePassword) {
             setError('Both password did not matched');
             return
@@ -40,17 +43,17 @@ const Signup = () => {
                 <div className="input-group">
                     <label htmlFor="">Email :</label>
                     <br />
-                    <input type="email" onBlur={handleEmail} placeholder='example@gmail.com' required />
+                    <input type="email" name='email' placeholder='example@gmail.com' required />
                 </div>
                 <div className="input-group">
                     <label htmlFor="">New Password :</label>
                     <br />
-                    <input type="text" onBlur={handleNewPassword} placeholder='********' required />
+                    <input type="text" name='newPassword' placeholder='********' required />
                 </div>
                 <div className="input-group">
                     <label htmlFor="">Re-type Password :</label>
                     <br />
-                    <input type="text" onBlur={handleRePassword} placeholder='********' required />
+                    <input type="text" name='rePassword' placeholder='********' required />
                 </div>
                 {error && <p style={{ color: 'red' }}>{error}</p>}
                 <button>Submit</button>

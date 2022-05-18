@@ -8,6 +8,7 @@ import User from './Components/User/User';
 import Home from './Pages/Home/Home';
 import RequireAuth from './Components/RequireAuth/RequireAuth';
 import Finance from './Pages/Finance/Finance';
+import Member from './Pages/Member/Member';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home></Home>}></Route>
         <Route path='/home' element={<Home></Home>}></Route>
+        <Route path='/home/:member' element={<Member></Member>}></Route>
         <Route path='finance' element={
           <RequireAuth>
             <Finance></Finance>
