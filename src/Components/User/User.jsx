@@ -6,9 +6,14 @@ import auth from '../../firebase.init';
 import './User.css'
 
 const User = () => {
-    const [user] = useAuthState(auth);
+    const [user, loading] = useAuthState(auth);
     const navigate = useNavigate();
     !user && navigate('/login')
+    if (loading) {
+        return <div class="spinner-border" role="status">
+            <span class="sr-only"></span>
+        </div>;
+    }
     return (
         <div>
             <h1>Hello, {user?.displayName ? user.displayName : 'User'}!</h1>
